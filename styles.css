@@ -1,0 +1,1011 @@
+:root {
+    --primary: #6e4ff6;
+    --primary-dark: #4527a0;
+    --primary-glow: #9d72ff;
+    --secondary: #00b0ff;
+    --secondary-glow: #80d8ff;
+    --accent: #00e5ff;
+    --bg-dark: #0a0e17;
+    --bg-card: #141c2b;
+    --bg-modal: #1a2236;
+    --text-light: #ffffff;
+    --text-muted: #b0bec5;
+    --success: #00c853;
+    --warning: #ffd600;
+    --danger: #ff3d71;
+    --border-color: #303f57;
+    --star-color: #ffffff;
+    --constellation-color: rgba(255, 255, 255, 0.15);
+}
+
+@keyframes float {
+    0% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-10px) translateX(5px); }
+    100% { transform: translateY(0px) translateX(0px); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(110, 79, 246, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(110, 79, 246, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(110, 79, 246, 0); }
+}
+
+@keyframes starTwinkle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.2; }
+}
+
+@keyframes backgroundMove {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rotateConstellation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Estrelas de fundo */
+body:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 5px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 3px),
+        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 4px);
+    background-size: 550px 550px, 350px 350px, 250px 250px;
+    background-position: 0 0, 30px 60px, 130px 270px;
+    z-index: -1;
+    animation: backgroundMove 120s linear infinite;
+}
+
+/* Constelações */
+body:after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(110, 79, 246, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(110, 79, 246, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+    opacity: 0.3;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+header {
+    background-color: rgba(20, 28, 43, 0.7);
+    backdrop-filter: blur(5px);
+    color: var(--text-light);
+    padding: 20px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--primary);
+    position: relative;
+}
+
+header:before {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-glow), transparent);
+}
+
+h1 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+    width: 100%;
+}
+
+h1:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.professor-name {
+    text-align: center;
+    font-size: 16px;
+    color: var(--text-muted);
+    margin-top: 15px;
+    letter-spacing: 1px;
+}
+
+.setup-container {
+    background-color: var(--bg-card);
+    padding: 25px;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.setup-container:hover {
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(110, 79, 246, 0.2);
+}
+
+.setup-container:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.setup-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: var(--primary-glow);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.setup-title:before {
+    content: "⬢";
+    margin-right: 10px;
+    color: var(--accent);
+    font-size: 18px;
+}
+
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.action-button {
+    margin-bottom: 25px;
+    animation: pulse 2s infinite;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+    position: relative;
+}
+
+.filter-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 12px 20px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn:hover {
+    background-color: rgba(110, 79, 246, 0.1);
+    color: var(--text-light);
+    border-color: var(--primary);
+}
+
+.filter-btn.active {
+    background-color: var(--primary-dark);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(110, 79, 246, 0.4);
+}
+
+.filter-btn.active:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.search-bar {
+    padding: 12px 18px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    color: var(--text-light);
+    border-radius: 0;
+    min-width: 250px;
+    transition: all 0.3s;
+    font-size: 14px;
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(110, 79, 246, 0.3);
+}
+
+.search-bar::placeholder {
+    color: var(--text-muted);
+}
+
+.turma-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.turma-card {
+    background-color: var(--bg-card);
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease;
+    position: relative;
+    border: 1px solid var(--border-color);
+    animation: fadeIn 0.5s ease-out;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.turma-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(110, 79, 246, 0.2);
+    border-color: var(--primary);
+}
+
+.turma-card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 90% 10%, rgba(110, 79, 246, 0.1) 0%, transparent 80%);
+    pointer-events: none;
+}
+
+.turma-header {
+    background: linear-gradient(to right, var(--primary-dark), var(--bg-modal));
+    color: white;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.turma-header:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.turma-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.turma-info {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(48, 63, 87, 0.5);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.label {
+    font-weight: 500;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.value {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.progress-container {
+    margin-top: 20px;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: rgba(48, 63, 87, 0.5);
+    position: relative;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.progress-fill {
+    position: absolute;
+    height: 100%;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    transition: width 0.5s ease-out;
+}
+
+.aula-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    flex-grow: 1;
+    text-align: center;
+    min-height: 50px;
+}
+
+.btn:before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 0;
+    height: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.btn:hover:before {
+    width: 200%;
+    height: 200%;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 10px rgba(110, 79, 246, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    box-shadow: 0 4px 15px rgba(110, 79, 246, 0.4);
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 176, 255, 0.3);
+}
+
+.btn-secondary:hover {
+    background-color: #0091ea;
+    box-shadow: 0 4px 15px rgba(0, 176, 255, 0.4);
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 61, 113, 0.3);
+}
+
+.btn-danger:hover {
+    background-color: #e52b59;
+    box-shadow: 0 4px 15px rgba(255, 61, 113, 0.4);
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status.active {
+    background-color: rgba(0, 200, 83, 0.15);
+    color: var(--success);
+    border: 1px solid rgba(0, 200, 83, 0.3);
+}
+
+.status.pending {
+    background-color: rgba(255, 214, 0, 0.15);
+    color: var(--warning);
+    border: 1px solid rgba(255, 214, 0, 0.3);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 14, 23, 0.85);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--bg-modal);
+    padding: 25px;
+    width: 90%;
+    max-width: 550px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-color);
+    animation: fadeIn 0.3s ease-out;
+    position: relative;
+}
+
+.modal-content:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s;
+}
+
+.close-modal:hover {
+    color: var(--text-light);
+}
+
+.aula-list {
+    list-style: none;
+}
+
+.aula-item {
+    padding: 18px;
+    border-bottom: 1px solid rgba(48, 63, 87, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.aula-item:hover {
+    background-color: rgba(110, 79, 246, 0.05);
+}
+
+.aula-item:last-child {
+    border-bottom: none;
+}
+
+.aula-info {
+    flex: 1;
+}
+
+.aula-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-light);
+}
+
+.aula-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.aula-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    cursor: pointer;
+    position: relative;
+    appearance: none;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s;
+}
+
+.aula-checkbox:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.aula-checkbox:checked:after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(255, 61, 113, 0.9);
+    color: white;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 5;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.delete-btn:hover {
+    background-color: var(--danger);
+    transform: scale(1.1);
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary);
+    color: white;
+    padding: 15px 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+    border-left: 4px solid var(--accent);
+    font-size: 16px;
+}
+
+.databox {
+    width: 100%;
+    min-height: 120px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    padding: 15px;
+    margin: 15px 0;
+    font-family: 'Consolas', 'Courier New', monospace;
+    white-space: pre-wrap;
+    display: none;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 14px 15px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    transition: all 0.3s;
+    font-size: 15px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(110, 79, 246, 0.2);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.checkbox-group input {
+    margin-right: 8px;
+    width: auto;
+    height: 16px;
+    width: 16px;
+}
+
+/* Constelações do Zodíaco */
+.zodiac-constellation {
+    position: fixed;
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Posições e tamanhos específicos para cada constelação */
+.aries {
+    top: 5%;
+    left: 5%;
+    width: 250px;
+    height: 250px;
+    animation: starTwinkle 6s infinite ease-in-out, rotateConstellation 120s linear infinite;
+}
+
+.taurus {
+    top: 15%;
+    right: 10%;
+    width: 300px;
+    height: 300px;
+    animation: starTwinkle 7s infinite ease-in-out, rotateConstellation 130s linear infinite reverse;
+}
+
+.gemini {
+    bottom: 10%;
+    left: 15%;
+    width: 280px;
+    height: 280px;
+    animation: starTwinkle 8s infinite ease-in-out, rotateConstellation 140s linear infinite;
+}
+
+.cancer {
+    top: 30%;
+    left: 25%;
+    width: 220px;
+    height: 220px;
+    animation: starTwinkle 5s infinite ease-in-out, rotateConstellation 125s linear infinite reverse;
+}
+
+.leo {
+    top: 40%;
+    right: 20%;
+    width: 350px;
+    height: 350px;
+    animation: starTwinkle 9s infinite ease-in-out, rotateConstellation 150s linear infinite;
+}
+
+.virgo {
+    bottom: 15%;
+    right: 10%;
+    width: 320px;
+    height: 320px;
+    animation: starTwinkle 7.5s infinite ease-in-out, rotateConstellation 135s linear infinite reverse;
+}
+
+.libra {
+    top: 65%;
+    left: 5%;
+    width: 240px;
+    height: 240px;
+    animation: starTwinkle 6.5s infinite ease-in-out, rotateConstellation 145s linear infinite;
+}
+
+.scorpio {
+    top: 50%;
+    left: 40%;
+    width: 300px;
+    height: 300px;
+    animation: starTwinkle 8.5s infinite ease-in-out, rotateConstellation 155s linear infinite reverse;
+}
+
+.sagittarius {
+    bottom: 5%;
+    right: 30%;
+    width: 280px;
+    height: 280px;
+    animation: starTwinkle 7s infinite ease-in-out, rotateConstellation 160s linear infinite;
+}
+
+.capricorn {
+    top: 20%;
+    left: 60%;
+    width: 260px;
+    height: 260px;
+    animation: starTwinkle 6s infinite ease-in-out, rotateConstellation 140s linear infinite reverse;
+}
+
+.aquarius {
+    bottom: 30%;
+    right: 50%;
+    width: 290px;
+    height: 290px;
+    animation: starTwinkle 7.5s infinite ease-in-out, rotateConstellation 150s linear infinite;
+}
+
+.pisces {
+    top: 70%;
+    right: 15%;
+    width: 310px;
+    height: 310px;
+    animation: starTwinkle 8s infinite ease-in-out, rotateConstellation 165s linear infinite reverse;
+}
+
+/* Animação de flutuação para alguns elementos */
+.turma-card:nth-child(odd) {
+    animation: float 6s ease-in-out infinite;
+}
+
+.turma-card:nth-child(even) {
+    animation: float 8s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+/* Ajuste para melhor legibilidade em fundos escuros */
+::selection {
+    background: var(--primary);
+    color: white;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-dark);
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* Responsividade aprimorada */
+@media (max-width: 1100px) {
+    .turma-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .turma-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .controls {
+        flex-direction: column;
+    }
+    
+    .search-bar {
+        width: 100%;
+    }
+    
+    .filter-options {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        white-space: nowrap;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .filter-btn {
+        flex: 1;
+        text-align: center;
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .action-buttons .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .aula-controls {
+        flex-direction: column;
+    }
+    
+    .aula-controls .btn {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .notification {
+        left: 20px;
+        right: 20px;
+        text-align: center;
+    }
+    
+    .turma-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .turma-header h2 {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+    
+    h1 {
+        font-size: 22px;
+    }
+    
+    .modal-title {
+        font-size: 18px;
+    }
+    
+    .professor-name {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .setup-title:before {
+        display: none;
+    }
+    
+    .info-row {
+        flex-direction: column;
+    }
+    
+    .label {
+        margin-bottom: 5px;
+    }
+    
+    .value {
+        margin-bottom: 8px;
+    }
+    
+    .checkbox-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .btn {
+        font-size: 13px;
+        padding: 12px 15px;
+    }
+    
+    .setup-container, 
+    .turma-card {
+        padding: 15px;
+    }
+    
+    .turma-info {
+        padding: 15px;
+    }
+    
+    .turma-header {
+        padding: 15px;
+    }
+    
+    .aula-item {
+        padding: 15px;
+    }
+}
+
+/* Fonte futurística */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
